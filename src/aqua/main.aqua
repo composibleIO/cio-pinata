@@ -1,0 +1,102 @@
+aqua Main
+
+import "@fluencelabs/aqua-lib/builtin.aqua"
+import "@fluencelabs/aqua-lib/subnet.aqua"
+
+use "deals.aqua"
+use "hosts.aqua"
+import "services.aqua"
+
+export uploadFile, uploadFolder 
+
+func getTestWorkers() -> []Worker:
+
+    deals <- Deals.get()
+    dealId = deals.testV0!.dealIdOriginal
+    on HOST_PEER_ID:
+        subnet <- Subnet.resolve(dealId)
+    if subnet.success == false:
+        Console.print(["Failed to resolve subnet: ", subnet.error])
+    <- subnet.workers
+
+func equalResults(results: []AMResponse) -> bool:
+
+    b: *bool
+    if results[0].success && results[0].result == results[1].result && results[0].result == results[2].result :
+        b <<- true
+    else:
+        b <<- false
+    <- b!
+
+func flattenResponse(results: []AMResponse) -> []string:
+
+    arr: *string
+    for r <- results:
+        if r.success:
+            arr <<- r.result 
+    <- arr
+
+func uploadFile(pinataJWTKey: string) -> bool:
+
+    b: *bool
+    content = "hello"
+    name = "test" 
+    cid = "QmWfVY9y3xjsixTgbd9AorQxH7VtMpzfx2HaWtsoUYecaX" 
+
+    results: *AMResponse
+
+    for w <- getTestWorkers() par:     
+        on w.worker_id! via w.host_id: 
+            results <- CioPinata.addAsFile(content, name, pinataJWTKey) 
+    join results[2]
+
+    -- arr <- flattenResponse(results)
+    -- for s <- arr:
+    --     Console.print(s)
+
+    if equalResults(results):
+        if results!.result == cid:
+            Console.print("test ran succesfully")
+            b <<- true
+        else: 
+            Console.print(results!.result)
+            Console.print("peers returned an unexpected cid")
+            b <<- false
+    else: 
+        Console.print("peers return unequal results")
+        b <<- false
+
+    <- b!
+
+func uploadFolder(pinataJWTKey: string) -> bool:
+
+    b: *bool
+    content = "hello"
+    folder = "." 
+    cid = "QmWfVY9y3xjsixTgbd9AorQxH7VtMpzfx2HaWtsoUYecaX" 
+
+    results: *AMResponse
+
+    for w <- getTestWorkers() par:     
+        on w.worker_id! via w.host_id: 
+            path <- Vault.put(content)  
+            results <- CioPinata.addFolder(folder, pinataJWTKey) 
+    join results[2]
+
+    arr <- flattenResponse(results)
+    for s <- arr:
+        Console.print(s)
+
+    if equalResults(results):       
+        if results!.result == cid:
+            Console.print("test ran succesfully")
+            b <<- true
+        else: 
+            Console.print(results!.result)
+            Console.print("peers returned an unexpected cid")
+            b <<- false
+    else: 
+        Console.print("peers return unequal results")
+        b <<- false
+
+    <- b!

@@ -16,7 +16,7 @@ fn boundary() -> String {
 }
 
 pub struct Form {       
-    writer: MultipartFormDataWriter<Vec<u8>>
+    pub writer: MultipartFormDataWriter<Vec<u8>>
 }
 
 impl Form {
@@ -28,7 +28,7 @@ impl Form {
             format!("---boundary{}", boundary())
           );
 
-          Form {
+        Form {
             writer
         }
     }
@@ -65,14 +65,14 @@ impl Form {
 
     pub fn writeText(self: &mut Self, key: &str, value: &String) {
 
-        self.writer.write_text_field(key, value);
+        let _  = self.writer.write_text_field(key, value);
     }
 
-    pub fn finish(self: Self) -> String {
+    // pub fn finish(self: &mut Self) -> String {
 
-        let buf = self.writer.finish().unwrap(); 
-        String::from_utf8(buf.clone()).unwrap()
-    }
+    //     let buf = self.writer.finish().unwrap(); 
+    //     String::from_utf8(buf.clone()).unwrap()
+    // }
 
     pub fn boundary(self: &Self) -> &String {
 

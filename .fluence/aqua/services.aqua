@@ -1,0 +1,13 @@
+aqua Services declares *
+
+
+data AMResponse:
+  success: bool
+  result_raw: string
+  result: string
+  timestamp: i64
+  host_id: string
+
+service CioPinata("cioPinata"):
+  addAsFile(content: string, name: string, pinataJWTKey: string) -> AMResponse
+  addFolder(folder: string, pinataJWTKey: string) -> AMResponse

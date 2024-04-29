@@ -1,19 +1,8 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::{{Path}};
-use serde_json::Value;
-use crate::marine;           
-
-// use marine_rs_sdk::marine;
-
-#[marine]
-#[derive(Debug,Serialize, Deserialize, Clone)]
-pub struct PinataResult {
-    pub ipfsHash: String,
-    pub pinSize: u64,
-    pub timestamp: String,
-    pub isDuplicate: bool
-}
+         
+use cio_curl_effector_imports::{HttpHeader};
 
 #[derive(Debug,Serialize, Deserialize, Clone)]
 pub enum MetadataValue {
@@ -69,18 +58,50 @@ pub fn trimPath(path: &Path, folder: &String) -> String {
     pathEls[index..].join("/").to_string()
 }
 
-pub fn formatResult(r: &String) -> PinataResult {
+pub fn headers(pinataJWTKey: String, boundary: &String) -> Vec<HttpHeader> {
 
-    println!("{:?}",r);
+    let h1 = HttpHeader {
+        name: "Authorization".to_string(),
+        value: format!("Bearer {}", pinataJWTKey)
+    };
+  
+    let h2 = HttpHeader {
+      name: "Content-type".to_string(),
+      value: format!("multipart/form-data; boundary={}", boundary)
+    };
 
-    let v: Value = serde_json::from_str(r).unwrap();
-
-    PinataResult {
-        ipfsHash: v["IpfsHash"].to_string().replace("\"",""),
-        pinSize: v["PinSize"].as_u64().unwrap(),
-        timestamp: v["Timestamp"].to_string().replace("\"",""),
-        isDuplicate: v["isDuplicate"].as_bool().unwrap()                
-    }
-
+    vec![h1,h2]
 }
+
+pub fn pinData(name: &String) -> PinData {
+
+    PinData {
+        pinata_metadata: Some(PinMetadata {
+          name: Some(name.to_string()),
+          // keyvalues: HashMap::new()
+        }),
+        pinata_options : Some(PinOptions{
+          cid_version: Some(1),
+          custom_pin_policy: None,
+          host_nodes: None
+        })
+    }
+}       
+
+
+
+// pub fn formatResult(r: &String) -> PinataResult {
+
+//     println!("{:?}",r);
+
+//     let v: Value = serde_json::from_str(r).unwrap();
+
+//     PinataResult {
+//         ipfsHash: v["IpfsHash"].to_string().replace("\"",""),
+//         pinSize: v["PinSize"].as_u64().unwrap(),
+//         timestamp: v["Timestamp"].to_string().replace("\"",""),
+//         isDuplicate: v["isDuplicate"].as_bool().unwrap()                
+//     }
+
+// }
 
