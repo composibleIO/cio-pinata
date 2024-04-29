@@ -39,9 +39,9 @@ pub struct PinMetadata {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct PinOptions {
-    pub host_nodes: Option<Vec<String>>,
-    pub custom_pin_policy: Option<PinPolicy>,
-    pub cid_version: Option<u8>
+    // pub host_nodes: Option<Vec<String>>,
+    // pub custom_pin_policy: Option<PinPolicy>,
+    pub cidVersion: Option<u8>
 }
 
 
@@ -81,9 +81,9 @@ pub fn pinData(name: &String) -> PinData {
           // keyvalues: HashMap::new()
         }),
         pinata_options : Some(PinOptions{
-          cid_version: Some(1),
-          custom_pin_policy: None,
-          host_nodes: None
+          cidVersion: Some(1),
+        //   custom_pin_policy: None,
+        //   host_nodes: None
         })
     }
 }       
