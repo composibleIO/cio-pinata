@@ -1,4 +1,4 @@
-Composible interface for Fluence network to pin files and folders to Pinata. JWT token needed.
+Composible interface for Fluence network to pin files and folders to [Pinata](https://www.pinata.cloud/). JWT token needed.
 
 to run: 
 
