@@ -24,7 +24,7 @@ enable = [ "aqua-ipfs", "decider" ]
   ipfs_binary_path = "/usr/bin/ipfs"
 
 [effectors.ipfs]
-wasm_cid = "bafkreicrfikfredxsxi2ikyh55eg43kgzgbgakskhdpse3pp4kcxkaq3yu"
+wasm_cid = "bafkreifwz7ia6otb3czodw62hnpvvgnd2wezo4mp27x3vove4ubrtavida"
 
   [effectors.ipfs.allowed_binaries]
   ipfs = "/usr/bin/ipfs"

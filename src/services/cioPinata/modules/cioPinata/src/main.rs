@@ -1,28 +1,17 @@
 #![allow(non_snake_case)]
 use marine_rs_sdk::marine;
 use marine_rs_sdk::module_manifest;
-
-
 use serde::{{Serialize,Deserialize}};
 use std::fs;
 use walkdir::WalkDir;
 use std::path::{{PathBuf,Path}};
+use cio_response_types::AMResponse;
 
 module_manifest!();
 
 mod multipart;
 mod pinata;   
 mod request;
-
-#[marine]
-#[derive(Debug,Serialize, Deserialize, Clone)]
-pub struct AMResponse {
-    pub success: bool,
-    pub result_raw: String,
-    pub result: String,
-    pub timestamp: i64,  
-    pub host_id: String
-}   
 
 pub fn main() {}
 

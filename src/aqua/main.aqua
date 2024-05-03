@@ -41,7 +41,7 @@ func uploadFile(pinataJWTKey: string) -> bool:
     b: *bool
     content = "hello"
     name = "test" 
-    cid = "QmWfVY9y3xjsixTgbd9AorQxH7VtMpzfx2HaWtsoUYecaX" 
+    cid = "bafkreibm6jg3ux5qumhcn2b3flc3tyu6dmlb4xa7u5bf44yegnrjhc4yeq" 
 
     results: *AMResponse
 

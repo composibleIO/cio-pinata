@@ -7,17 +7,17 @@
 version: 1
 
 deals:
-  local:
-    test:
-      definition: bafkreiho5ycxijlnhjeupgreajlfjqfe7ikrcu5jgw67acppc7xlmoqrh4
-      timestamp: 2024-04-27T16:59:49.447Z
-      dealIdOriginal: "0xCe85503De9399D4dECa3c0b2bb3e9e7CFCBf9C6B"
-      dealId: ce85503de9399d4deca3c0b2bb3e9e7cfcbf9c6b
-      chainNetworkId: 31337
-    testV0:
-      definition: bafkreiho5ycxijlnhjeupgreajlfjqfe7ikrcu5jgw67acppc7xlmoqrh4
-      timestamp: 2024-04-27T17:22:23.318Z
-      dealIdOriginal: "0x18998c7E38ede4dF09cEec08E5372Bf8fe5719ea"
-      dealId: 18998c7e38ede4df09ceec08e5372bf8fe5719ea
-      chainNetworkId: 31337
-      matched: true
+  {
+    local:
+      {
+        testV0:
+          {
+            definition: bafkreib45sk65phhw4fx4jrev7zyjim36birjb4rqlrnqk4mfrxpaonnce,
+            timestamp: 2024-05-03T16:53:10.353Z,
+            dealIdOriginal: "0xCe85503De9399D4dECa3c0b2bb3e9e7CFCBf9C6B",
+            dealId: ce85503de9399d4deca3c0b2bb3e9e7cfcbf9c6b,
+            chainNetworkId: 31337,
+            matched: true
+          }
+      }
+  }

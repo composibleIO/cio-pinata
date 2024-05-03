@@ -86,22 +86,5 @@ pub fn pinData(name: &String) -> PinData {
         //   host_nodes: None
         })
     }
-}       
-
-
-
-// pub fn formatResult(r: &String) -> PinataResult {
-
-//     println!("{:?}",r);
-
-//     let v: Value = serde_json::from_str(r).unwrap();
-
-//     PinataResult {
-//         ipfsHash: v["IpfsHash"].to_string().replace("\"",""),
-//         pinSize: v["PinSize"].as_u64().unwrap(),
-//         timestamp: v["Timestamp"].to_string().replace("\"",""),
-//         isDuplicate: v["isDuplicate"].as_bool().unwrap()                
-//     }
-
-// }
+}
 
